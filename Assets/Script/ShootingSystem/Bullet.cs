@@ -18,6 +18,11 @@ public class Bullet : NetworkBehaviour
     [Header("Effects")]
     public GameObject hitEffectPrefab; // Optional visual effect
 
+    public void InitializeBullet(ulong ownerClientId, int dmg)
+    {
+        ShooterClientId.Value = ownerClientId;
+        damage = dmg;
+    }
 
     public override void OnNetworkSpawn()
     {
@@ -46,6 +51,7 @@ public class Bullet : NetworkBehaviour
         if (!IsServer) return;
 
         NetworkObject obj = other.gameObject.GetComponent<NetworkObject>();
+        if (obj.tag != "Player") { DespawnBullet(); return; }
         if (obj != null && obj.OwnerClientId == ShooterClientId.Value) return;
        
 

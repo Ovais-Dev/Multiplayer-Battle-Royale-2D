@@ -271,14 +271,13 @@ GameObject:
   m_Component:
   - component: {fileID: 4450287430270900269}
   - component: {fileID: 7647349066833782414}
-  - component: {fileID: 8855330495754364401}
   m_Layer: 0
   m_Name: Shield
   m_TagString: Shield
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4450287430270900269
 Transform:
   m_ObjectHideFlags: 0
@@ -353,42 +352,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!58 &8855330495754364401
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2365494031037488681}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Radius: 0.5
 --- !u!1 &4373006224824484703
 GameObject:
   m_ObjectHideFlags: 0
@@ -437,9 +400,11 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   bulletPrefab: {fileID: 6468694826446115481, guid: 80481e0c6a18c8f46bc2803ffed29cdb, type: 3}
   bulletSpeed: 10
+  bulletDamage: 10
   firePoint: {fileID: 8325770641082517750}
   fireRate: 0.4
   fireCooldDownTime: 0.2
+  initialShootingData: {fileID: 11400000, guid: 68109dc45fb060a4abfaae3c0f3feaf5, type: 2}
   shootingSlider: {fileID: 2747795158751043342}
   energyDivision: 3
 --- !u!1 &5310848552048284767
@@ -1076,10 +1041,10 @@ GameObject:
   - component: {fileID: 4100961157187545088}
   - component: {fileID: 540786940722245216}
   - component: {fileID: 1911284114802113405}
-  - component: {fileID: 5315300421329225809}
+  - component: {fileID: 346886117078567245}
   m_Layer: 0
   m_Name: Character
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1173,7 +1138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 4203387384
+  GlobalObjectIdHash: 2488538195
   InScenePlacedSourceGlobalObjectIdHash: 2488538195
   DeferredDespawnTick: 0
   Ownership: 1
@@ -1377,11 +1342,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterHealth
   ShowTopMostFoldoutHeaderGroup: 1
-  maxHealth: 50
   health:
     m_InternalValue: 20
   IsDead:
     m_InternalValue: 0
+  maxHealth: 50
   healthSlider: {fileID: 4010048011879042595}
   playerColorController:
     normalColor: {r: 0, g: 1, b: 0.32156864, a: 1}
@@ -1391,6 +1356,7 @@ MonoBehaviour:
     criticalColor: {r: 0.5471698, g: 0, b: 0.14465943, a: 1}
   colFlash: {fileID: 64321940526967194}
   flashThresholdPercentage: 30
+  shieldObj: {fileID: 2365494031037488681}
 --- !u!114 &4100961157187545088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1436,7 +1402,7 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   KillCount:
     m_InternalValue: 0
---- !u!114 &5315300421329225809
+--- !u!114 &346886117078567245
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1445,6 +1411,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8764334322595578304}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d76cca4d364d4fc439f4c5a7e3aa7bd2, type: 3}
+  m_Script: {fileID: 11500000, guid: f99719ee7aae8ee4ab7f543ee6f89d1d, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PowerUpsController
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerPowerupController
+  ShowTopMostFoldoutHeaderGroup: 1

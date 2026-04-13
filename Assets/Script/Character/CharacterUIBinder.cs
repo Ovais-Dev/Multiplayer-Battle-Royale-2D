@@ -24,6 +24,7 @@ public class CharacterUIBinder : NetworkBehaviour
     {
         nameText.text = newName.ToString();
     }
+
     [ServerRpc]
     void SetNameServerRpc(string name)
     {

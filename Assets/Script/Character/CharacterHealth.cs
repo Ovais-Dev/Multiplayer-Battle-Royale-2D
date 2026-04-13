@@ -36,6 +36,7 @@ public class CharacterHealth : NetworkBehaviour
     #endregion
 
     #region PowerUps Setting Variables
+    public GameObject shieldObj;
     bool IsInvincible = false;
     #endregion
     //private CharacterUIBinder uiBinder;
@@ -176,6 +177,7 @@ public class CharacterHealth : NetworkBehaviour
     #region PowerUp Setting Handler
     public void SetInvincible(bool value)
     {
+        shieldObj.SetActive(value);
         IsInvincible = value;
     }
     #endregion

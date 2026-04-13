@@ -1,19 +1,19 @@
 using UnityEngine;
 using Unity.Netcode;
 using System.Collections.Generic;
-public class PlayerPoweruController : NetworkBehaviour
+public class PlayerPowerupController : NetworkBehaviour
 {
-    private List<IPowerup> activePowerUps = new List<IPowerup>();
+    private List<IPowerup> activePowerups = new List<IPowerup>();
     private void Update()
     {
-        for (int i = 0; i < activePowerUps.Count; i++)
+        for (int i = 0; i < activePowerups.Count; i++)
         {
-            var p = activePowerUps[i];
+            var p = activePowerups[i];
             p.Tick(Time.deltaTime);
             if (p.IsFinished)
             {
                 p.Deactivate(gameObject);
-                activePowerUps.RemoveAt(i);
+                activePowerups.RemoveAt(i);
             }
         }
     }
@@ -22,6 +22,26 @@ public class PlayerPoweruController : NetworkBehaviour
         var instance = pData.CreateInstance();
 
         instance.Activate(gameObject);
-        activePowerUps.Add(instance);
+        activePowerups.Add(instance);
+
+       
+        NotifyClientsPowerupStartedClientRpc(pData.id);
+    }
+
+    [ClientRpc]
+    void NotifyClientsPowerupStartedClientRpc(int id)
+    {
+        //if (IsOwner) return; // owner already applied locally (optional)
+
+        var data = PowerupDatabaseHolder.Instance.Get(id);
+        
+        var instance = data.CreateInstance();
+
+        instance.Activate(gameObject); // VISUAL + LOCAL EFFECT
+        activePowerups.Add(instance);
+        if (IsOwner)
+        {
+            PowerupUIHandler.Instance.IntializePowerupUIElement(data);
+        }
     }
 }
