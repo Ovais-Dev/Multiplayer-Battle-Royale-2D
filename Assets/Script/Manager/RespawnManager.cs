@@ -3,6 +3,20 @@ using TMPro;
 using Unity.Netcode;
 public class RespawnManager : MonoBehaviour
 {
+    private static RespawnManager _instance;
+    public static RespawnManager Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = FindFirstObjectByType<RespawnManager>();
+            }
+            return _instance;
+        }
+    }
+
+
     public GameObject respawnPanel;
     public TMP_Text respawnCounterText;
 
@@ -49,5 +63,12 @@ public class RespawnManager : MonoBehaviour
     void UpdateText(float time)
     {
         respawnCounterText.text = time.ToString("0");
+    }
+
+    public void RespawnPlayer(bool oldValue, bool newValue)
+    {
+        if (newValue) return;
+        CharacterHealth cR = Unity.Netcode.NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<CharacterHealth>();
+        cR.gameObject.SetActive(true);
     }
 }

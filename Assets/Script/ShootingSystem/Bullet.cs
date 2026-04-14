@@ -51,8 +51,9 @@ public class Bullet : NetworkBehaviour
         if (!IsServer) return;
 
         NetworkObject obj = other.gameObject.GetComponent<NetworkObject>();
+        if (obj == null) { DespawnBullet();return; }
         if (obj.tag != "Player") { DespawnBullet(); return; }
-        if (obj != null && obj.OwnerClientId == ShooterClientId.Value) return;
+        if (obj!=null && obj.OwnerClientId == ShooterClientId.Value) return;
        
 
         var health = other.GetComponent<CharacterHealth>();

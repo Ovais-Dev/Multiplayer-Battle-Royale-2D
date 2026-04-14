@@ -21,7 +21,8 @@ public class PlayerShooting : NetworkBehaviour
     [SerializeField] private Slider shootingSlider;
     [SerializeField] private int energyDivision = 3;
 
-    float currentEnergyFill = 0f;
+    float currentEnergyFill;
+
     float lastFireTime = 0f;
     float coolDownTimeCounter = 0f;
     float energyDivisionFactor;
@@ -50,8 +51,9 @@ public class PlayerShooting : NetworkBehaviour
     void Update()
     {
         if (!IsSpawned) return;
+        HandleFillEnergyAndCoolDownTimer();
         if (!IsOwner) return;
-        if(Mouse.current.leftButton.isPressed)
+        if(Mouse.current.leftButton.wasPressedThisFrame)
         {
             if(currentEnergyFill>=energyDivisionFactor && coolDownTimeCounter<=0f)
             {
@@ -59,8 +61,30 @@ public class PlayerShooting : NetworkBehaviour
                 currentEnergyFill -= energyDivisionFactor;
                 Vector2 shootDir = CursorObj.Instance.GetMouseWorldPosition() - (Vector2)transform.position;
                 FireServerRpc(shootDir.normalized);
+                EnergySyncServerRpc(currentEnergyFill);
             }
         }
+        
+    }
+    [ServerRpc]
+    void EnergySyncServerRpc(float currentEnergyFill)
+    {
+        if (!IsOwner)
+        {
+            this.currentEnergyFill = currentEnergyFill;
+        }
+            EnergySyncClientRpc(currentEnergyFill);
+    }
+    [ClientRpc]
+    void EnergySyncClientRpc(float currentEnergyFill)
+    {
+        if (IsOwner) return;
+        
+            this.currentEnergyFill = currentEnergyFill;
+        
+    }
+    void HandleFillEnergyAndCoolDownTimer()
+    {
         if (coolDownTimeCounter > 0f)
         {
             coolDownTimeCounter -= Time.deltaTime;
@@ -74,7 +98,6 @@ public class PlayerShooting : NetworkBehaviour
             }
         }
     }
-
     [ServerRpc]
     void FireServerRpc(Vector2 direction)
     {

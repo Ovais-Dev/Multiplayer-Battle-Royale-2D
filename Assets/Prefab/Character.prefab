@@ -1116,7 +1116,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 0f39a9205e4394ee1b6ba8269428d176, type: 3}
+  m_Sprite: {fileID: -3310053549091964210, guid: 66b9b4d5d1e367146be294a51611a4bf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1138,7 +1138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 2488538195
+  GlobalObjectIdHash: 4203387384
   InScenePlacedSourceGlobalObjectIdHash: 2488538195
   DeferredDespawnTick: 0
   Ownership: 1
@@ -1170,39 +1170,13 @@ MonoBehaviour:
   dashCoolDownTime: 0.2
   spriteRenderer: {fileID: 5548268224467086355}
   animationFrameRate: 0.1
-  upAnimation:
-    directionName: ForwardDirection
+  moveAnimation:
+    directionName: MoveAnimation
     idleFrames:
-    - {fileID: 21300000, guid: 4fc82fadd0e1d4ed8a697be473d72842, type: 3}
+    - {fileID: -3310053549091964210, guid: 66b9b4d5d1e367146be294a51611a4bf, type: 3}
     walkFrames:
-    - {fileID: 21300000, guid: b6844b89804364482afc9e85f4c7ead6, type: 3}
-    - {fileID: 21300000, guid: bf39c8ce7ced841cdadf0334489a8ece, type: 3}
-    - {fileID: 21300000, guid: a7663080596d341069f6dbaaecd4ab9d, type: 3}
-    - {fileID: 21300000, guid: 2a39d1b36efff405c9fa9eea030081b5, type: 3}
-    - {fileID: 21300000, guid: b6e0510b98b514e078dd461313dcd347, type: 3}
-    - {fileID: 21300000, guid: 89a9ed82b75b24c1492b3fd640424573, type: 3}
-  downAnimation:
-    directionName: DownAnimation
-    idleFrames:
-    - {fileID: 21300000, guid: 0f39a9205e4394ee1b6ba8269428d176, type: 3}
-    walkFrames:
-    - {fileID: 21300000, guid: 8f92b2d912773479894490421de2bc04, type: 3}
-    - {fileID: 21300000, guid: 5365aa814486e4356841731775eab6ec, type: 3}
-    - {fileID: 21300000, guid: 1e624e1a997d8411ebe498d51d9dcc6d, type: 3}
-    - {fileID: 21300000, guid: 8d49905babc88495495ad3a6f7fce288, type: 3}
-    - {fileID: 21300000, guid: 7376652f4768d4adf82c2dec25babcaa, type: 3}
-    - {fileID: 21300000, guid: 54e307e02e8174335a835d5efe3c8380, type: 3}
-  rightAnimation:
-    directionName: SideAnimation
-    idleFrames:
-    - {fileID: 21300000, guid: 21ae12909dfa64464820da55fc494021, type: 3}
-    walkFrames:
-    - {fileID: 21300000, guid: 2521b6229a37c4a56b4fd4e12227c2fb, type: 3}
-    - {fileID: 21300000, guid: becb8a6873c144b738fc9cc5fceece35, type: 3}
-    - {fileID: 21300000, guid: a274e989dc8e043a1b30c36987c3ecb1, type: 3}
-    - {fileID: 21300000, guid: 82de06744ccd74b2cb215461eafffad7, type: 3}
-    - {fileID: 21300000, guid: b770b77e5762c4d3491a467ece3ee7e4, type: 3}
-    - {fileID: 21300000, guid: 280d5eb6ec4ee40a3922d520ee42863d, type: 3}
+    - {fileID: 8353722198116501313, guid: 4606898f1f3a5864ba5a9a1d1ec5ddb3, type: 3}
+    - {fileID: 6232474199355274383, guid: a6978013ccfc03c45b4db05ff4295bde, type: 3}
 --- !u!114 &1784278223104606709
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1327,8 +1301,8 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: -0.1}
-  m_Radius: 0.3869279
+  m_Offset: {x: 0, y: -0.01}
+  m_Radius: 0.42
 --- !u!114 &4138643351523129975
 MonoBehaviour:
   m_ObjectHideFlags: 0

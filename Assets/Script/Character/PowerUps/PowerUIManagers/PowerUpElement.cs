@@ -8,7 +8,7 @@ public class PowerUpElement : MonoBehaviour
     [Header("UI ")]
     [SerializeField] private Slider tickSlider;
 
-    public Action<PowerUpElement> OnDestroy;
+    //public Action<PowerUpElement> OnDestroy;
 
     float timer;
     public void Initialize(PowerupData data)
@@ -16,7 +16,7 @@ public class PowerUpElement : MonoBehaviour
         pData = data;
         SetupInitialization();
         StartCoroutine(PowerTickCoroutine());
-        OnDestroy += PowerupUIHandler.Instance.RemovePowerData;
+        //OnDestroy += PowerupUIHandler.Instance.RemovePowerData;
     }
     
     private void SetupInitialization()
@@ -39,13 +39,13 @@ public class PowerUpElement : MonoBehaviour
             tickSlider.value = timer;
             yield return null;
         }
-        OnDestroy?.Invoke(this);
+        //OnDestroy?.Invoke(this);
         yield return new WaitForSeconds(0.1f);
         Deactivate();
     }
     public void Deactivate()
     {
-        OnDestroy -= PowerupUIHandler.Instance.RemovePowerData;
+        //OnDestroy -= PowerupUIHandler.Instance.RemovePowerData;
         Destroy(gameObject);
     }
     

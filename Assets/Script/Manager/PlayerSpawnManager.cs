@@ -65,4 +65,5 @@ public class PlayerSpawnManager : MonoBehaviour
 
         Debug.Log($"Spawned player for client {clientId} at {spawnPosition}");
     }
+    
 }

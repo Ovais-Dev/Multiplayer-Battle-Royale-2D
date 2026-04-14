@@ -38,6 +38,7 @@ public class CharacterHealth : NetworkBehaviour
     #region PowerUps Setting Variables
     public GameObject shieldObj;
     bool IsInvincible = false;
+    //NetworkVariable<bool> IsInvincible = new NetworkVariable<bool>(false);
     #endregion
     //private CharacterUIBinder uiBinder;
    
@@ -90,15 +91,17 @@ public class CharacterHealth : NetworkBehaviour
         {
             SetHealthSliderColor(enemyColorController);
         }
-            IsDead.OnValueChanged += OnDeathStateChanges;
+        IsDead.OnValueChanged += OnDeathStateChanges;
+        IsDead.OnValueChanged += RespawnManager.Instance.RespawnPlayer;
+
             health.OnValueChanged += UpdateHealthSlider;
-            healthSlider.maxValue = maxHealth;
-            healthSlider.value = maxHealth;
+        healthSlider.maxValue = maxHealth;
+        healthSlider.value = maxHealth;
 
         if (!IsServer) return;
 
         health.Value = maxHealth;
-        
+
     }
     #endregion
 
@@ -111,17 +114,17 @@ public class CharacterHealth : NetworkBehaviour
 
     public void ApplyDamage(int damage, ulong attackerId)
     {
-        if (IsServer)
+        if (!IsServer || IsInvincible) return;
+
+        health.Value -= damage;
+        Debug.Log("Health: " + health.Value);
+        if (health.Value <= 0)
         {
-            health.Value -= damage;
-            Debug.Log("Health: " + health.Value);
-            if (health.Value <= 0)
-            {
-                HandleDeath(attackerId);
-                return;
-            }
+            HandleDeath(attackerId);
+            return;
         }
-        
+
+
     }
     void HandleDeath(ulong killerId)
     {
@@ -133,6 +136,7 @@ public class CharacterHealth : NetworkBehaviour
             stats.KillCount.Value++;
         }
     }
+    
     void OnDeathStateChanges(bool oldValue, bool newValue)
     {
         if (newValue)
@@ -140,13 +144,11 @@ public class CharacterHealth : NetworkBehaviour
             if (IsOwner)
             {
                 UIManager.Instance.ShowRespawnPanel();
+                PowerupUIHandler.Instance.RemoveAllPowerData();
             }
             gameObject.SetActive(false);
         }
-        else
-        {
-            gameObject.SetActive(true);
-        }
+        
     }
     #endregion
     #region Control Respawn

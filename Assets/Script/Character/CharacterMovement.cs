@@ -28,9 +28,10 @@ public class CharacterMovement : NetworkBehaviour
     }
 
     [Header("Animation Frames")]
-    [SerializeField] private DirectionAnimation upAnimation;
-    [SerializeField] private DirectionAnimation downAnimation;
-    [SerializeField] private DirectionAnimation rightAnimation; // Base right animation
+    [SerializeField] private DirectionAnimation moveAnimation;
+    //[SerializeField] private DirectionAnimation upAnimation;
+    //[SerializeField] private DirectionAnimation downAnimation;
+    //[SerializeField] private DirectionAnimation rightAnimation; // Base right animation
 
     // input mapping
     private InputAction moveAction;
@@ -171,30 +172,34 @@ public class CharacterMovement : NetworkBehaviour
     void SetAnimationDirection(Vector2 direction)
     {
         // Determine which animation set to use
-        if (direction.y > 0.5f)
+        if (direction.magnitude > 0.1f)
         {
-            // Facing up
-            currentAnimation = upAnimation;
-            spriteRenderer.flipX = false;
+            currentAnimation = moveAnimation;
         }
-        else if (direction.y < -0.5f)
-        {
-            // Facing down
-            currentAnimation = downAnimation;
-            spriteRenderer.flipX = false;
-        }
-        else if (direction.x > 0.5f)
-        {
-            // Facing right (no flip needed)
-            currentAnimation = rightAnimation;
-            spriteRenderer.flipX = false;
-        }
-        else if (direction.x < -0.5f)
-        {
-            // Facing left (flip the right animation)
-            currentAnimation = rightAnimation;
-            spriteRenderer.flipX = true; // Flip horizontally for left
-        }
+        //if (direction.y > 0.5f)
+        //{
+        //    // Facing up
+        //    currentAnimation = upAnimation;
+        //    spriteRenderer.flipX = false;
+        //}
+        //else if (direction.y < -0.5f)
+        //{
+        //    // Facing down
+        //    currentAnimation = downAnimation;
+        //    spriteRenderer.flipX = false;
+        //}
+        //else if (direction.x > 0.5f)
+        //{
+        //    // Facing right (no flip needed)
+        //    currentAnimation = rightAnimation;
+        //    spriteRenderer.flipX = false;
+        //}
+        //else if (direction.x < -0.5f)
+        //{
+        //    // Facing left (flip the right animation)
+        //    currentAnimation = rightAnimation;
+        //    spriteRenderer.flipX = true; // Flip horizontally for left
+        //}
 
         // Reset animation frame when changing direction
         currentFrameIndex = 0;
@@ -202,10 +207,10 @@ public class CharacterMovement : NetworkBehaviour
     }
 
     // Optional: Public method to change animation sets at runtime
-    public void SetAnimationFrames(DirectionAnimation up, DirectionAnimation down, DirectionAnimation right)
-    {
-        upAnimation = up;
-        downAnimation = down;
-        rightAnimation = right;
-    }
+    //public void SetAnimationFrames(DirectionAnimation up, DirectionAnimation down, DirectionAnimation right)
+    //{
+    //    upAnimation = up;
+    //    downAnimation = down;
+    //    rightAnimation = right;
+    //}
 }

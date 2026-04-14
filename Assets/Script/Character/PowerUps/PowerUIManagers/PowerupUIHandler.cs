@@ -48,10 +48,29 @@ public class PowerupUIHandler : MonoBehaviour
     {
         activePowerupIds.Find(ele => ele.GetPowerDataId() == id).RefillTickValue();
     }
+    public void DeactivateUIElement(int id)
+    {
+        PowerUpElement pElement = activePowerupIds.Find(ele => ele.GetPowerDataId() == id);
+        activePowerupIds.Remove(pElement);
+        pElement.Deactivate();
+    }
+    public void DeactivateUIElement(PowerUpElement pElement)
+    {
+        activePowerupIds.Remove(pElement);
+        pElement.Deactivate();
+    }
     #endregion
     
     public void RemovePowerData(PowerUpElement pElement)
     {
         activePowerupIds.Remove(pElement);
+    }
+    public void RemoveAllPowerData()
+    {
+        if (activePowerupIds.Count <= 0) return;
+        foreach(PowerUpElement pEle in activePowerupIds)
+        {
+            DeactivateUIElement(pEle);
+        }
     }
 }

@@ -12,6 +12,7 @@ public class ShieldPowerUp: IPowerup
     {
         var health = target.GetComponentInChildren<CharacterHealth>();
         health.SetInvincible(true);
+        Debug.Log("Shield Is Activated");
     }
     public void Tick(float tR)
     {
@@ -21,6 +22,7 @@ public class ShieldPowerUp: IPowerup
     {
         var health = target.GetComponentInChildren<CharacterHealth>();
         health.SetInvincible(false);
+        Debug.Log("Shield Is Deactivated");
     }
 }
 public class FirePowerUp : IPowerup

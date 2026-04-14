@@ -31,12 +31,11 @@ public class PlayerPowerupController : NetworkBehaviour
     [ClientRpc]
     void NotifyClientsPowerupStartedClientRpc(int id)
     {
-        //if (IsOwner) return; // owner already applied locally (optional)
-
+        if (IsServer) return; // server side already knows
         var data = PowerupDatabaseHolder.Instance.Get(id);
-        
-        var instance = data.CreateInstance();
 
+        // why notifying all clients  if hit and damage controlled by server
+        var instance = data.CreateInstance();
         instance.Activate(gameObject); // VISUAL + LOCAL EFFECT
         activePowerups.Add(instance);
         if (IsOwner)
